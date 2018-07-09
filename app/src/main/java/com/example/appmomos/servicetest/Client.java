@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.example.appmomos.servicetest.Service.Server;
 
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Client extends AppCompatActivity
 {
@@ -25,6 +23,7 @@ public class Client extends AppCompatActivity
     Server mServer;
     TextView text;
     Button button;
+    boolean stopHandler = false;
 
     private Handler handler;
     private Runnable handlerTask;
@@ -44,22 +43,29 @@ public class Client extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                //HANDLER TO GET SONG TIME AFTER EVERY SECOND
-                handler = new Handler();
-                handlerTask = new Runnable()
-                {
-                    @Override
-                    public void run() {
-                        text.setText("Current Position : "+ mServer.getTime().get(0) +"\nTrack Length "+mServer.getTime().get(1) );
-                        handler.postDelayed(handlerTask, 1000);
-                    }
-                };
-                handlerTask.run();
-                button.setVisibility(View.GONE);
-
+               getTrackInfoFun();
             }
         });
 
+    }
+
+    private void getTrackInfoFun()
+    {
+        //HANDLER TO GET SONG TIME AFTER EVERY SECOND
+        handler = new Handler();
+        handlerTask = new Runnable()
+        {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void run() {
+                text.setText("Current Position : "+ mServer.getTime().get(0) +"\nTrack Length "+mServer.getTime().get(1) );
+                if(!stopHandler)
+                {
+                    handler.postDelayed(handlerTask, 1000);
+                }
+            }
+        };
+        handlerTask.run();
     }
 
 
@@ -92,6 +98,11 @@ public class Client extends AppCompatActivity
     };
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
     protected void onStop()
     {
         super.onStop();
@@ -99,6 +110,7 @@ public class Client extends AppCompatActivity
         {
             unbindService(mConnection);
             mBounded = false;
+            stopHandler = true;
         }
     };
 
@@ -110,6 +122,7 @@ public class Client extends AppCompatActivity
         {
             unbindService(mConnection);
             mBounded = false;
+            stopHandler = true;
             Toast.makeText(Client.this, "Service is disconnected", Toast.LENGTH_SHORT).show();
             stopService(new Intent(this, Server.class));
         }
