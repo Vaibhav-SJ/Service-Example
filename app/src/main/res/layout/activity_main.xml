@@ -37,4 +37,14 @@
         android:text="Next Page"
         tools:ignore="HardcodedText" />
 
+    <Button
+        android:id="@+id/bindService"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Play Song by \nBind Service"
+        tools:ignore="HardcodedText" />
+
 </LinearLayout>

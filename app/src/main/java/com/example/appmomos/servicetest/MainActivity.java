@@ -10,7 +10,7 @@ import com.example.appmomos.servicetest.Service.MyService;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
-    Button buttonStart, buttonStop,buttonNext;
+    Button buttonStart, buttonStop,buttonNext,bindService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -21,10 +21,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonStart = findViewById(R.id.buttonStart);
         buttonStop = findViewById(R.id.buttonStop);
         buttonNext = findViewById(R.id.buttonNext);
+        bindService = findViewById(R.id.bindService);
 
         buttonStart.setOnClickListener(this);
         buttonStop.setOnClickListener(this);
         buttonNext.setOnClickListener(this);
+        bindService.setOnClickListener(this);
 
     }
 
@@ -42,8 +44,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.buttonNext:
-                Intent intent=new Intent(this,NextPageActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(this,NextPageActivity.class));
+                break;
+
+            case R.id.bindService:
+                startActivity(new Intent(this,Client.class));
                 break;
         }
     }

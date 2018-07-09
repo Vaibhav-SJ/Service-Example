@@ -18,13 +18,19 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".Service.MyService"
+        <service
+            android:name=".Service.MyService"
             tools:ignore="InnerclassSeparator" />
 
+
+        <service
+            android:name=".Service.Server"
+            tools:ignore="InnerclassSeparator" />
+
+
+
         <activity android:name=".NextPageActivity" />
-
-
-
+        <activity android:name=".Client" />
     </application>
 
 </manifest>

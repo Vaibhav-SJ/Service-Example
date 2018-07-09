@@ -26,7 +26,7 @@ public class MyService extends Service
     {
         super.onCreate();
 
-        Toast.makeText(this, "Service Created", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Created", Toast.LENGTH_SHORT).show();
 
         myPlayer = MediaPlayer.create(this, R.raw.swag_se_swagat);
         myPlayer.setLooping(false); // Set looping
@@ -37,7 +37,7 @@ public class MyService extends Service
     public void onStart(Intent intent, int startId)
     {
         super.onStart(intent, startId);
-        Toast.makeText(this, "Service Started", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
         myPlayer.start();
     }
 
@@ -45,7 +45,7 @@ public class MyService extends Service
     public void onDestroy()
     {
         super.onDestroy();
-        Toast.makeText(this, "Service Stopped", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Service Stopped", Toast.LENGTH_SHORT).show();
         myPlayer.stop();
     }
 }
