@@ -10,7 +10,7 @@
     <TextView
         android:id="@+id/text"
         android:textSize="20sp"
-        android:text="hi"
+        android:text="Click on the button to get song time"
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import android.widget.Toast;
 
 import com.example.appmomos.servicetest.Service.Server;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Client extends AppCompatActivity
 {
 
@@ -21,6 +25,9 @@ public class Client extends AppCompatActivity
     Server mServer;
     TextView text;
     Button button;
+
+    private Handler handler;
+    private Runnable handlerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,7 +44,19 @@ public class Client extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-               text.setText("Current Position : "+ mServer.getTime().get(0) +"\nTrack Length "+mServer.getTime().get(1) );
+                //HANDLER TO GET SONG TIME AFTER EVERY SECOND
+                handler = new Handler();
+                handlerTask = new Runnable()
+                {
+                    @Override
+                    public void run() {
+                        text.setText("Current Position : "+ mServer.getTime().get(0) +"\nTrack Length "+mServer.getTime().get(1) );
+                        handler.postDelayed(handlerTask, 1000);
+                    }
+                };
+                handlerTask.run();
+                button.setVisibility(View.GONE);
+
             }
         });
 
